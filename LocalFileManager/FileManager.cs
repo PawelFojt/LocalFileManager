@@ -4,6 +4,8 @@ namespace LocalFileManager
 {
     internal class FileManager
     {
+
+        private readonly string test = "";
         private string fileExtension {  get; set; }
         public FileManager(string[] folders, string fileExtension) 
         {
