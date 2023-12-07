@@ -4,7 +4,7 @@ namespace LocalFileManager
 {
     internal class FileManager
     {
-
+        
         private string fileExtension {  get; set; }
         public FileManager(string[] folders, string fileExtension) 
         {
@@ -20,6 +20,7 @@ namespace LocalFileManager
         public void CopyFiles(string sourceFolder, string destinationFolder)
         {
             ProcessFiles(sourceFolder, destinationFolder, FileOperation.Copy);
+            
         }
 
         public void MoveFiles(string sourceFolder, string destinationFolder)
@@ -69,7 +70,7 @@ namespace LocalFileManager
         {
             try
             {
-                using (FileStream stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None))
+                using (FileStream stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
                 {
                     stream.Close();
                 }

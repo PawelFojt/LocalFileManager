@@ -1,25 +1,23 @@
 using Serilog;
+using System.Runtime;
 
 namespace LocalFileManager
 {
     public class Worker : BackgroundService
     {
-        private readonly static string[] _folders = 
-        { 
-            "folders\\Main",
-            "folders\\ToCopy",
-            "folders\\ToMove" 
-        };
-        private readonly string _destinationFolder = _folders[0];
-        private readonly string _sourceFolder = _folders[1];
-        private readonly string _moveFolder = _folders[2];
+        private readonly static string[] _folders = new string[3];
+        private readonly Settings _settings;
         private readonly FileManager _fileManager;
 
 
         public Worker()
         {
             Log.Information("Application started");
-            _fileManager = new FileManager(_folders, ".csv");
+            IConfiguration config = new ConfigurationBuilder()
+           .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+           .Build();
+            _settings = new Settings(config);
+            _fileManager = new FileManager(_settings.Folders, _settings.FileExtension);
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -28,9 +26,9 @@ namespace LocalFileManager
             {
                 while (!stoppingToken.IsCancellationRequested)
                 {   
-                    _fileManager.CopyFiles(_sourceFolder, _destinationFolder);
-                    _fileManager.MoveFiles(_moveFolder, _sourceFolder);
-                    await Task.Delay(5000, stoppingToken);
+                    _fileManager.CopyFiles(_settings.ToCopyFolder, _settings.MainFolder);
+                    _fileManager.MoveFiles(_settings.ToMoveFolder, _settings.ToCopyFolder);
+                    await Task.Delay(_settings.RefreshTime, stoppingToken);
                 }
             }
             catch (DirectoryNotFoundException ex)
