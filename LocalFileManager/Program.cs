@@ -1,17 +1,12 @@
 using LocalFileManager;
 using Serilog;
-using System.Security.Cryptography.X509Certificates;
 
 public class Program
 {
     private static async Task Main(string[] args)
     {
-        IHost host = Host.CreateDefaultBuilder(args)
-        .ConfigureServices(services =>
-        {
-            services.AddHostedService<Worker>();
-        })
-        .UseSerilog()
+        IConfiguration configuration = new ConfigurationBuilder()
+        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
         .Build();
 
         Log.Logger = new LoggerConfiguration()
@@ -19,8 +14,26 @@ public class Program
                 .WriteTo.File($"Logs\\log.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
-        
+        try
+        {
+            IHost host = Host.CreateDefaultBuilder(args)
+                .ConfigureServices(services =>
+                {
+                    services.AddSingleton(configuration);
+                    services.AddHostedService<Worker>();
+                })
+                .UseSerilog()
+                .Build();
 
-        await host.RunAsync();
+            await host.RunAsync();
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "An unexpected error occurred");
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
     }
 }

@@ -5,10 +5,10 @@ namespace LocalFileManager
     internal class FileManager
     {
         
-        private string fileExtension {  get; set; }
-        public FileManager(string[] folders, string fileExtension) 
+        private List<string> fileExtensions {  get; set; }
+        public FileManager(List<string> folders, List<string> fileExtensions) 
         {
-            this.fileExtension = fileExtension;
+            this.fileExtensions = fileExtensions;
             InitializeFolders(folders);
         }
         
@@ -30,7 +30,9 @@ namespace LocalFileManager
 
         private void ProcessFiles(string sourceFolder, string destinationFolder, FileOperation fileOperation)
         {
-            string[] files = Directory.GetFiles(sourceFolder, $"*{fileExtension}");
+            var files = Directory
+                .GetFiles(sourceFolder)
+                .Where(file => fileExtensions.Any(file.ToLower().EndsWith));
 
             foreach (var file in files)
             {
@@ -82,7 +84,7 @@ namespace LocalFileManager
             return false;
         }
 
-        private void InitializeFolders(string[] folders)
+        private void InitializeFolders(List<string> folders)
         {
             try
             {
@@ -125,7 +127,9 @@ namespace LocalFileManager
             {
                 for (int i = 1; i <= numberOfFiles; i++)
                 {
-                    string filePath = Path.Combine(folderName, $"{Path.GetRandomFileName()}{fileExtension}");
+                    var random = new Random();
+                    int randomExtension = random.Next(fileExtensions.Count);
+                    string filePath = Path.Combine(folderName, $"{Path.GetRandomFileName()}{fileExtensions[randomExtension]}");
 
                     if (!File.Exists(filePath))
                     {
