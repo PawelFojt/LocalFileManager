@@ -6,6 +6,7 @@ namespace LocalFileManager
     {
 
         private readonly string test = "";
+        private readonly string test2 = "";
         private string fileExtension {  get; set; }
         public FileManager(string[] folders, string fileExtension) 
         {
