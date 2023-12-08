@@ -1,4 +1,4 @@
-﻿internal class Settings
+﻿public class Settings
 {
     public List<string> Folders { get; private set; }
 
@@ -17,10 +17,10 @@
     {
         try
         {
-            IConfigurationSection settings = configuraton.GetSection("Settings");
-            Folders = settings.GetSection("FoldersPath").Get<List<string>>() ?? new List<string>();
-            FileExtensions = settings.GetSection("FileExtensions").Get<List<string>>() ?? new List<string>();
-            RefreshTime = settings.GetValue<int>("RefreshTime", 10 * 1000);
+            IConfigurationSection testEnvInitializer = configuraton.GetSection("Settings").GetSection("TestEnvInitializer");
+            Folders = testEnvInitializer.GetSection("FoldersPath").Get<List<string>>() ?? new List<string>();
+            FileExtensions = testEnvInitializer.GetSection("FileExtensions").Get<List<string>>() ?? new List<string>();
+            RefreshTime = testEnvInitializer.GetValue<int>("RefreshTime", 10 * 1000);
 
         }
         catch (Exception ex)

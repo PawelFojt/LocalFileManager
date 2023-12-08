@@ -5,14 +5,16 @@ namespace LocalFileManager
     public class Worker : BackgroundService
     {
         private readonly Settings _settings;
+        private readonly TestEnvInitializer _initializer;
         private readonly FileManager _fileManager;
 
 
-        public Worker(IConfiguration configuration)
+        public Worker(Settings settings)
         {
             Log.Information("Application started");
-            _settings = new Settings(configuration);
-            _fileManager = new FileManager(_settings.Folders, _settings.FileExtensions);
+            _settings = settings;
+            _initializer = new TestEnvInitializer(_settings.Folders, _settings.FileExtensions);
+            _fileManager = new FileManager(_settings.FileExtensions);
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
