@@ -14,7 +14,7 @@ namespace LocalFileManager
             Log.Information("Application started");
             _settings = settings;
             _initializer = new TestEnvInitializer(_settings.Folders, _settings.FileExtensions);
-            _fileManager = new FileManager(_settings.FileExtensions);
+            _copyManager = new CopyManager(_settings.FileExtensions, _settings.ToCopyFolder, _settings.MainFolder);
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)

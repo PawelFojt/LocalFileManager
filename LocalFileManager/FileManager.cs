@@ -4,10 +4,11 @@ namespace LocalFileManager
 {
     internal abstract class FileManager
     {
-        public string sourceFolder { get; set; }
-        public string destinationFolder { get; set; }
-        public List<string> fileExtensions { get; set; }
+        protected string sourceFolder { get; set; }
+        protected string destinationFolder { get; set; }
+        protected List<string> fileExtensions { get; set; }
 
+        public FileManager() { }
         public FileManager(List<string> fileExtensions, string sourceFolder, string destinationFolder) 
         {
             this.sourceFolder = sourceFolder;
