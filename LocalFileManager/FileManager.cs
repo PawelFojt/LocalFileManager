@@ -44,13 +44,7 @@ namespace LocalFileManager
                 switch (fileOperation)
                 {
                     case FileOperation.Move:
-                        if (IsFileLocked(new FileInfo(file)))
-                        {
-                            Log.Warning($"{file} is in use");
-                            continue;
-                        }
-                        LogFileAction("Moved", fileName, sourceFolder, destinationFolder, file);
-                        File.Move(file, destinationPath);
+                        
                         break;
                     case FileOperation.Copy:
                         LogFileAction("Copied", fileName, sourceFolder, destinationFolder, file);
