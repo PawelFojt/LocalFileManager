@@ -1,12 +1,15 @@
-﻿public class AppSettings
+﻿using LocalFileManager;
+
+public class AppSettings
 {
-    public List<string> Folders { get; private set; }
+    public List<string> folders { get; private set; }
 
     public string MainFolder => GetFolderSafe(0);
     public string ToCopyFolder => GetFolderSafe(1);
     public string ToMoveFolder => GetFolderSafe(2);
-    public List<string> FileExtensions { get; private set; }
-    public int RefreshTime { get; private set; }
+    public List<string> fileExtensions { get; private set; }
+    public int refreshTime { get; private set; }
+    public string rootPath { get; private set; }
 
     public AppSettings(IConfiguration configuration)
     {
@@ -16,10 +19,12 @@
     {
         try
         {
-            IConfigurationSection testEnvInitializer = configuraton.GetSection("Settings").GetSection("TestEnvInitializer");
-            Folders = testEnvInitializer.GetSection("FoldersPath").Get<List<string>>() ?? new List<string>();
-            FileExtensions = testEnvInitializer.GetSection("FileExtensions").Get<List<string>>() ?? new List<string>();
-            RefreshTime = testEnvInitializer.GetValue<int>("RefreshTime", 10 * 1000);
+            IConfigurationSection settings = configuraton.GetSection("Settings");
+            IConfigurationSection testEnvInitializer = settings.GetSection("TestEnvInitializer");
+            folders = testEnvInitializer.GetSection("FoldersPath").Get<List<string>>() ?? new List<string>();
+            fileExtensions = testEnvInitializer.GetSection("FileExtensions").Get<List<string>>() ?? new List<string>();
+            refreshTime = settings.GetValue<int>("RefreshTime", 10 * 1000);
+            rootPath = settings.GetValue<string>("RootPath", "");
 
         }
         catch (Exception ex)
@@ -29,6 +34,6 @@
     }
     private string GetFolderSafe(int index)
     {
-        return index < Folders.Count ? Folders[index] : string.Empty;
+        return index < folders.Count ? folders[index] : string.Empty;
     }
 }

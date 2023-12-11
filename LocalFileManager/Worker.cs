@@ -13,8 +13,8 @@ namespace LocalFileManager
         {
             Log.Information("Application started");
             _settings = settings;
-            new TestEnvInitializer(_settings.Folders, _settings.FileExtensions);
-            _tasksSettings = new TasksSettings();
+            new TestEnvInitializer(_settings.folders, _settings.fileExtensions);
+            _tasksSettings = new TasksSettings(settings);
             _tasksSettings.GetSettings();
         }
 
@@ -40,7 +40,7 @@ namespace LocalFileManager
                         deleteManager.DeleteFiles();
                     }
 
-                    await Task.Delay(_settings.RefreshTime, stoppingToken);
+                    await Task.Delay(_settings.refreshTime, stoppingToken);
                 }
             }
             catch (DirectoryNotFoundException ex)
