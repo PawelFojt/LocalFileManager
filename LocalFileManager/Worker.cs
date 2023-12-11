@@ -8,17 +8,14 @@ namespace LocalFileManager
         private readonly AppSettings _settings;
         private readonly TasksSettings _tasksSettings;
 
-
         public Worker(AppSettings settings)
         {
             Log.Information("Application started");
             _settings = settings;
-            new TestEnvInitializer(_settings.folders, _settings.fileExtensions);
             _tasksSettings = new TasksSettings(settings);
             _tasksSettings.GetSettings();
         }
 
-        
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             try
