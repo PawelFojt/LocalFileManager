@@ -1,30 +1,43 @@
+using LocalFileManager.Manager;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Serilog;
 
 namespace LocalFileManager
 {
     public class Worker : BackgroundService
     {
-        private readonly Settings _settings;
+        private readonly AppSettings _settings;
         private readonly TestEnvInitializer _initializer;
         private readonly FileManager _fileManager;
 
 
-        public Worker(Settings settings)
+        public Worker(AppSettings settings)
         {
             Log.Information("Application started");
             _settings = settings;
-            _initializer = new TestEnvInitializer(_settings.Folders, _settings.FileExtensions);
-            _copyManager = new CopyManager(_settings.FileExtensions, _settings.ToCopyFolder, _settings.MainFolder);
+            new TestEnvInitializer(_settings.Folders, _settings.FileExtensions);
+            
+            using StreamReader reader = new("taskssettings.json");
+            var json = reader.ReadToEnd();
+            dynamic tasks = JsonConvert.DeserializeObject(json);
+            
+            foreach ( var task in tasks.copyFiles )
+            {
+                string a = task.sourcePath;
+                Log.Information($"{a}");
+            }
+
         }
 
+        
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             try
             {
                 while (!stoppingToken.IsCancellationRequested)
                 {
-                    _fileManager.CopyFiles(_settings.ToCopyFolder, _settings.MainFolder);
-                    _fileManager.MoveFiles(_settings.ToMoveFolder, _settings.ToCopyFolder);
+                    new CopyManager(_settings.FileExtensions, _settings.ToCopyFolder, _settings.MainFolder);
                     await Task.Delay(_settings.RefreshTime, stoppingToken);
                 }
             }

@@ -1,4 +1,4 @@
-﻿public class Settings
+﻿public class AppSettings
 {
     public List<string> Folders { get; private set; }
 
@@ -8,11 +8,10 @@
     public List<string> FileExtensions { get; private set; }
     public int RefreshTime { get; private set; }
 
-    public Settings(IConfiguration configuration)
+    public AppSettings(IConfiguration configuration)
     {
         LoadSettings(configuration);
     }
-
     private void LoadSettings(IConfiguration configuraton)
     {
         try

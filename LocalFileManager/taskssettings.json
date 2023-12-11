@@ -1,0 +1,62 @@
+{
+  "copyFiles": [
+    {
+      "sourceFolderPath": "copySourcePath",
+      "destFolderPath": "copyDestinationPath",
+      "fileExtensions": [
+        ".txt",
+        ".csv"
+      ]
+    },
+    {
+      "sourceFolderPath": "copySourcePath",
+      "destFolderPath": "copyDestinationPath",
+      "fileExtensions": [
+        ".txt",
+        ".csv"
+      ]
+    },
+    {
+      "sourceFolderPath": "copySourcePath",
+      "destFolderPath": "copyDestinationPath",
+      "fileExtensions": [
+        ".txt",
+        ".csv"
+      ]
+    }
+  ],
+  "moveFiles": [
+    {
+      "sourceFolderPath": "moveSourcePath",
+      "destFolderPath": "moveDestinationPath",
+      "fileExtensions": [
+        ".txt",
+        ".csv"
+      ]
+    },
+    {
+      "sourceFolderPath": "moveSourcePath",
+      "destFolderPath": "moveDestinationPath",
+      "fileExtensions": [
+        ".txt",
+        ".csv"
+      ]
+    }
+  ],
+  "DeleteFiles": [
+    {
+      "sourceFolderPath": "deleteSourcePath",
+      "fileExtensions": [
+        ".txt",
+        ".csv"
+      ]
+    },
+    {
+      "sourceFolderPath": "deleteSourcePath",
+      "fileExtensions": [
+        ".txt",
+        ".csv"
+      ]
+    }
+  ]
+}

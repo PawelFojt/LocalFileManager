@@ -4,13 +4,19 @@ using System.Runtime;
 
 public class Program
 {
-    public readonly Settings? _settings;
+    public readonly AppSettings? _settings;
+
     private static async Task Main(string[] args)
     {
-        IConfiguration configuration = new ConfigurationBuilder()
+        IConfiguration globalConfiguration = new ConfigurationBuilder()
         .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
         .Build();
-        Settings settings = new (configuration);
+        AppSettings globalSettings = new (globalConfiguration);
+
+        IConfiguration taskConfiguration = new ConfigurationBuilder()
+        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+        .Build();
+      
 
         Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console()
@@ -22,7 +28,7 @@ public class Program
             IHost host = Host.CreateDefaultBuilder(args)
                 .ConfigureServices(services =>
                 {
-                    services.AddSingleton(settings);
+                    services.AddSingleton(globalSettings);
                     services.AddHostedService<Worker>();
                 })
                 .UseSerilog()
