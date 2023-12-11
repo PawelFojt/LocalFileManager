@@ -2,14 +2,22 @@
 
 namespace LocalFileManager.Manager
 {
-    internal abstract class FileManager
+    public abstract class FileManager
     {
-        protected string sourceFolderPath { get; set; }
-        protected string destFolderPath { get; set; }
-        protected List<string> fileExtensions { get; set; }
+        public string sourceFolderPath { get; set; } = "";
+        public string destFolderPath { get; set; } = "";
+        public List<string> fileExtensions { get; set; } = new();
 
         public FileManager() { }
+
+        public FileManager(List<string> fileExtensions, string sourceFolderPath)
+            : base()
+        {
+            this.sourceFolderPath = sourceFolderPath;
+            this.fileExtensions = fileExtensions;
+        }
         public FileManager(List<string> fileExtensions, string sourceFolderPath, string destFolderPath)
+            : base()
         {
             this.sourceFolderPath = sourceFolderPath;
             this.destFolderPath = destFolderPath;
@@ -30,7 +38,7 @@ namespace LocalFileManager.Manager
 
         protected void LogFileAction(string action, string fileName, string filePath)
         {
-            string logMessage = $"{action} file: {fileName} from {sourceFolderPath} {(destFolderPath == null ? "" : "to " + destFolderPath)}," +
+            string logMessage = $"{action} file: {fileName} from {sourceFolderPath} {(destFolderPath == "" ? "" : "to " + destFolderPath)}," +
                 $" Size: {new FileInfo(filePath).Length} bytes";
             Log.Information(logMessage);
         }
@@ -49,6 +57,37 @@ namespace LocalFileManager.Manager
                 return true;
             }
             return false;
+        }
+
+        public delegate void FileOperation(string sourceFileName, string destFileName);
+
+        public void ProcessFiles(FileOperation fileOperation, string fileOperationMethodName)
+        {
+            var sourceFilesName = GetFiles();
+
+            foreach (string sourceFileName in sourceFilesName)
+            {
+                string fileName = Path.GetFileName(sourceFileName);
+                string destFileName = Path.Combine(destFolderPath, fileName);
+
+                if (File.Exists(destFileName)) continue;
+
+                if (IsFileLocked(new FileInfo(sourceFileName)))
+                {
+                    Log.Warning($"File {sourceFileName} is in use.");
+                    continue;
+                }
+
+                try
+                {
+                    LogFileAction(fileOperationMethodName, fileName, sourceFileName);
+                    fileOperation(sourceFileName, destFileName);
+                }
+                catch (IOException ex)
+                {
+                    Log.Error($"Error in {fileOperationMethodName.ToLower()} {fileName}: {ex.Message}");
+                }
+            }
         }
     }
 }

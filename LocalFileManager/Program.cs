@@ -1,6 +1,5 @@
 using LocalFileManager;
 using Serilog;
-using System.Runtime;
 
 public class Program
 {
@@ -11,12 +10,8 @@ public class Program
         IConfiguration globalConfiguration = new ConfigurationBuilder()
         .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
         .Build();
-        AppSettings globalSettings = new (globalConfiguration);
 
-        IConfiguration taskConfiguration = new ConfigurationBuilder()
-        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-        .Build();
-      
+        AppSettings globalSettings = new (globalConfiguration);      
 
         Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console()

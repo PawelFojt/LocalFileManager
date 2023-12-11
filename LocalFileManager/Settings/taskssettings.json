@@ -1,0 +1,62 @@
+{
+  "copyManagers": [
+    {
+      "sourceFolderPath": "tests\\copySourcePath",
+      "destFolderPath": "tests\\copyDestPath",
+      "fileExtensions": [
+        ".txt",
+        ".csv"
+      ]
+    },
+    {
+      "sourceFolderPath": "tests\\copySourcePath2",
+      "destFolderPath": "tests\\copyDestPath2",
+      "fileExtensions": [
+        ".txt",
+        ".csv"
+      ]
+    },
+    {
+      "sourceFolderPath": "tests\\copySourcePath3",
+      "destFolderPath": "tests\\copyDestPath3",
+      "fileExtensions": [
+        ".txt",
+        ".csv"
+      ]
+    }
+  ],
+  "moveManagers": [
+    {
+      "sourceFolderPath": "tests\\moveSourcePath",
+      "destFolderPath": "tests\\moveDestPath",
+      "fileExtensions": [
+        ".txt",
+        ".csv"
+      ]
+    },
+    {
+      "sourceFolderPath": "tests\\moveSourcePath2",
+      "destFolderPath": "tests\\moveDestPath2",
+      "fileExtensions": [
+        ".txt",
+        ".csv"
+      ]
+    }
+  ],
+  "deleteManagers": [
+    {
+      "sourceFolderPath": "tests\\deleteSourcePath",
+      "fileExtensions": [
+        ".txt",
+        ".csv"
+      ]
+    },
+    {
+      "sourceFolderPath": "tests\\deleteSourcePath2",
+      "fileExtensions": [
+        ".txt",
+        ".csv"
+      ]
+    }
+  ]
+}

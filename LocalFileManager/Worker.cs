@@ -1,6 +1,4 @@
-using LocalFileManager.Manager;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using LocalFileManager.Settings;
 using Serilog;
 
 namespace LocalFileManager
@@ -8,8 +6,7 @@ namespace LocalFileManager
     public class Worker : BackgroundService
     {
         private readonly AppSettings _settings;
-        private readonly TestEnvInitializer _initializer;
-        private readonly FileManager _fileManager;
+        private readonly TasksSettings _tasksSettings;
 
 
         public Worker(AppSettings settings)
@@ -17,17 +14,8 @@ namespace LocalFileManager
             Log.Information("Application started");
             _settings = settings;
             new TestEnvInitializer(_settings.Folders, _settings.FileExtensions);
-            
-            using StreamReader reader = new("taskssettings.json");
-            var json = reader.ReadToEnd();
-            dynamic tasks = JsonConvert.DeserializeObject(json);
-            
-            foreach ( var task in tasks.copyFiles )
-            {
-                string a = task.sourcePath;
-                Log.Information($"{a}");
-            }
-
+            _tasksSettings = new TasksSettings();
+            _tasksSettings.GetSettings();
         }
 
         
@@ -37,7 +25,21 @@ namespace LocalFileManager
             {
                 while (!stoppingToken.IsCancellationRequested)
                 {
-                    new CopyManager(_settings.FileExtensions, _settings.ToCopyFolder, _settings.MainFolder);
+                    foreach (var copyManager in _tasksSettings.copyManagers)
+                    {
+                        copyManager.CopyFiles();
+                    }
+                   
+                    foreach (var moveManager in  _tasksSettings.moveManagers)
+                    {
+                        moveManager.MoveFiles();
+                    }
+
+                    foreach (var deleteManager in _tasksSettings.deleteManagers)
+                    {
+                        deleteManager.DeleteFiles();
+                    }
+
                     await Task.Delay(_settings.RefreshTime, stoppingToken);
                 }
             }
