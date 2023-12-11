@@ -1,24 +1,24 @@
 {
   "copyManagers": [
     {
-      "sourceFolderPath": "tests\\copySourcePath",
-      "destFolderPath": "tests\\copyDestPath",
+      "sourceFolderPath": "C:\\Users\\fojtp\\source\\repos\\LocalFileManager\\LocalFileManager\\bin\\Release\\net6.0\\publish\\tests\\copySourcePath",
+      "destFolderPath": "C:\\Users\\fojtp\\source\\repos\\LocalFileManager\\LocalFileManager\\bin\\Release\\net6.0\\publish\\tests\\copyDestPath",
       "fileExtensions": [
         ".txt",
         ".csv"
       ]
     },
     {
-      "sourceFolderPath": "tests\\copySourcePath2",
-      "destFolderPath": "tests\\copyDestPath2",
+      "sourceFolderPath": "C:\\Users\\fojtp\\source\\repos\\LocalFileManager\\LocalFileManager\\bin\\Release\\net6.0\\publish\\tests\\copySourcePath2",
+      "destFolderPath": "C:\\Users\\fojtp\\source\\repos\\LocalFileManager\\LocalFileManager\\bin\\Release\\net6.0\\publish\\tests\\copyDestPath2",
       "fileExtensions": [
         ".txt",
         ".csv"
       ]
     },
     {
-      "sourceFolderPath": "tests\\copySourcePath3",
-      "destFolderPath": "tests\\copyDestPath3",
+      "sourceFolderPath": "C:\\Users\\fojtp\\source\\repos\\LocalFileManager\\LocalFileManager\\bin\\Release\\net6.0\\publish\\tests\\copySourcePath3",
+      "destFolderPath": "C:\\Users\\fojtp\\source\\repos\\LocalFileManager\\LocalFileManager\\bin\\Release\\net6.0\\publish\\tests\\copyDestPath3",
       "fileExtensions": [
         ".txt",
         ".csv"
@@ -27,16 +27,16 @@
   ],
   "moveManagers": [
     {
-      "sourceFolderPath": "tests\\moveSourcePath",
-      "destFolderPath": "tests\\moveDestPath",
+      "sourceFolderPath": "C:\\Users\\fojtp\\source\\repos\\LocalFileManager\\LocalFileManager\\bin\\Release\\net6.0\\publish\\tests\\moveSourcePath",
+      "destFolderPath": "C:\\Users\\fojtp\\source\\repos\\LocalFileManager\\LocalFileManager\\bin\\Release\\net6.0\\publish\\tests\\moveDestPath",
       "fileExtensions": [
         ".txt",
         ".csv"
       ]
     },
     {
-      "sourceFolderPath": "tests\\moveSourcePath2",
-      "destFolderPath": "tests\\moveDestPath2",
+      "sourceFolderPath": "C:\\Users\\fojtp\\source\\repos\\LocalFileManager\\LocalFileManager\\bin\\Release\\net6.0\\publish\\tests\\moveSourcePath2",
+      "destFolderPath": "C:\\Users\\fojtp\\source\\repos\\LocalFileManager\\LocalFileManager\\bin\\Release\\net6.0\\publish\\tests\\moveDestPath2",
       "fileExtensions": [
         ".txt",
         ".csv"
@@ -45,14 +45,14 @@
   ],
   "deleteManagers": [
     {
-      "sourceFolderPath": "tests\\deleteSourcePath",
+      "sourceFolderPath": "C:\\Users\\fojtp\\source\\repos\\LocalFileManager\\LocalFileManager\\bin\\Release\\net6.0\\publish\\tests\\deleteSourcePath",
       "fileExtensions": [
         ".txt",
         ".csv"
       ]
     },
     {
-      "sourceFolderPath": "tests\\deleteSourcePath2",
+      "sourceFolderPath": "C:\\Users\\fojtp\\source\\repos\\LocalFileManager\\LocalFileManager\\bin\\Release\\net6.0\\publish\\tests\\deleteSourcePath2",
       "fileExtensions": [
         ".txt",
         ".csv"

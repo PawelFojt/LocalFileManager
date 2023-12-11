@@ -1,6 +1,5 @@
 ﻿using LocalFileManager.Manager;
 using Newtonsoft.Json;
-using Serilog;
 
 namespace LocalFileManager.Settings
 {
@@ -12,7 +11,7 @@ namespace LocalFileManager.Settings
 
         public void GetSettings()
         {
-            var json = File.ReadAllText("Settings\\taskssettings.json");
+            var json = File.ReadAllText("C:\\Users\\fojtp\\source\\repos\\LocalFileManager\\LocalFileManager\\bin\\Release\\net6.0\\publish\\Settings\\taskssettings.json");
             var tasks = JsonConvert.DeserializeObject<TasksSettings>(json);
 
             foreach (var task in tasks.copyManagers)

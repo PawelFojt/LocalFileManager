@@ -21,13 +21,12 @@ public class Program
         try
         {
             IHost host = Host.CreateDefaultBuilder(args)
-                .UseWindowsService()
                 .ConfigureServices(services =>
                 {
                     services.AddSingleton(globalSettings);
                     services.AddHostedService<Worker>();
                 })
-                
+                .UseWindowsService()
                 .UseSerilog()
                 .Build();
 
