@@ -27,6 +27,7 @@ public class Program
                     services.AddHostedService<Worker>();
                 })
                 .UseSerilog()
+                .UseWindowsService()
                 .Build();
 
             await host.RunAsync();
