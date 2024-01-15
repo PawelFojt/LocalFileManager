@@ -11,13 +11,13 @@ public class Program
         .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
         .Build();
 
-        AppSettings globalSettings = new (globalConfiguration);      
-
         Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console()
-                .WriteTo.File($"Logs\\log.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.File($"{AppDomain.CurrentDomain.BaseDirectory}Logs\\log.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
+        AppSettings globalSettings = new (globalConfiguration);      
+        
         try
         {
             IHost host = Host.CreateDefaultBuilder(args)

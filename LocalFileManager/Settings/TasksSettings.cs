@@ -17,22 +17,31 @@ namespace LocalFileManager.Settings
         }
         public void GetSettings()
         {
-            var json = File.ReadAllText($"{_settings.rootPath}Settings\\taskssettings.json");
-            var tasks = JsonConvert.DeserializeObject<TasksSettings>(json);
+            var json = File.ReadAllText($"{_settings.baseDirectory}Settings\\taskssettings.json");
+            var tasks = JsonConvert.DeserializeObject<TasksSettings>(json)!;
+
 
             foreach (var task in tasks.copyManagers)
             {
-                copyManagers.Add(new CopyManager(task.fileExtensions, _settings.rootPath+task.sourceFolderPath, _settings.rootPath + task.destFolderPath));
+                copyManagers.Add(new CopyManager
+                    (task.fileExtensions,
+                    $"{_settings.baseDirectory}{task.sourceFolderPath}",
+                    $"{_settings.baseDirectory}{task.destFolderPath}"));
             }
 
             foreach (var task in tasks.moveManagers)
             {
-                moveManagers.Add(new MoveManager(task.fileExtensions, _settings.rootPath + task.sourceFolderPath, _settings.rootPath + task.destFolderPath));
+                moveManagers.Add(new MoveManager
+                    (task.fileExtensions,
+                    $"{_settings.baseDirectory}{task.sourceFolderPath}",
+                    $"{_settings.baseDirectory}{task.destFolderPath}"));
             }
 
             foreach (var task in tasks.deleteManagers)
             {
-                deleteManagers.Add(new DeleteManager(task.fileExtensions, _settings.rootPath + task.sourceFolderPath));
+                deleteManagers.Add(new DeleteManager
+                    (task.fileExtensions,
+                    $"{_settings.baseDirectory}{task.sourceFolderPath}"));
             }
         }
     }

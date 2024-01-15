@@ -1,7 +1,8 @@
 ﻿public class AppSettings
 {
     public int refreshTime { get; private set; }
-    public string rootPath { get; private set; }
+    public string baseDirectory { get; private set; } = null!;
+
 
     public AppSettings(IConfiguration configuration)
     {
@@ -13,7 +14,7 @@
         {
             IConfigurationSection settings = configuraton.GetSection("Settings");
             refreshTime = settings.GetValue<int>("RefreshTime", 10 * 1000);
-            rootPath = settings.GetValue<string>("RootPath", "");
+            baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         }
         catch (Exception ex)
         {
